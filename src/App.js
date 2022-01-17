@@ -45,6 +45,42 @@ const App = () => {
     }
   }
   
+  const callMintNFT = async () => {    
+    try {
+      const { ethereum } = window;
+      
+      if (ethereum){
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(CONTRACT_ADDRESS, mintNFT.abi, signer);
+        
+        contract.on('NewNFTMinted', (from, tokenId) => {
+          console.log(from, tokenId);
+          setLastTokenId(tokenId);
+        })
+        console.log('[+] Setup event listener');
+
+        
+        let txn = await contract.mintNFT();
+        
+        setIsMining(true);
+        console.log('[*] Mining started.....please wait.');
+        
+        await txn.wait();
+        setIsMining(false);
+        
+        debugger
+        setLastMintedNFT(txn.hash)
+        console.log(`[+] Mining completed!\nTransaction: https://rinkeby.etherscan.io/tx/${txn.hash}`);
+      }else {
+        console.error('[-] Ethereum object not present!  Install MetaMask!');
+      }
+    } catch (err) {
+      console.log(`[-] Error: ${err}`);
+      alert('SHizz... something went wrong with the bits in the blocks all chained together!\nSorry!');
+    }
+  }
+
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button className="cta-button connect-wallet-button">
