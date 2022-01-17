@@ -14,6 +14,12 @@ const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
 const App = () => {
+
+  const [ metamaskAccount, setMetamaskAccount ] = useState('');
+  const [ isMining, setIsMining ] = useState(false);
+  const [ lastMintedNFT, setLastMintedNFT ] = useState('');
+  const [ lastTokenId, setLastTokenId ] = useState(0);
+  
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button className="cta-button connect-wallet-button">
