@@ -96,11 +96,37 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">My NFT Collection</p>
+          <p className="header gradient-text">My NFT Minter</p>
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
           </p>
-          {renderNotConnectedContainer()}
+          {isMining && (
+              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between", color: 'white' }}>
+                Waiting for transaction to be mined...
+                <br />
+                <CircularProgress sx={{ padding: "1rem" }} />
+              </Box>
+            )}
+            
+            {metamaskAccount === '' && (renderNotConnectedContainer())}
+            
+            {metamaskAccount !== '' && !isMining && (
+              <button className='cta-button connect-wallet-button' onClick={callMintNFT}>
+                Mint NFT
+              </button>
+            )}
+            
+            {lastMintedNFT !== '' && (
+              <div className='minted-nft'>Check out your new NFT <a href={`https://rinkeby.rarible.com/token/${CONTRACT_ADDRESS}:${lastTokenId}`}>here</a></div>
+            )}
+            
+        </div>
+        
+        <div className='iframe-container'>
+            {lastMintedNFT !== '' && (
+              <iframe src={`https://rinkeby.rarible.com/token/${CONTRACT_ADDRESS}:${lastTokenId}`} width='80%' style={{ height: 'inherit' }}></iframe>
+            )}
+        
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
