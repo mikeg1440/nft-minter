@@ -89,6 +89,16 @@
   font-weight: bold;
 }
 
+.minted-nft {
+  color: rgb(6, 248, 6);
+  font-size: 18px;
+  margin-top: 2rem;
+}
+
+.iframe-container {
+  height: 100%;
+}
+
 /* KeyFrames */
 @-webkit-keyframes gradient-animation {
   0% {
