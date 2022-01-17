@@ -20,6 +20,8 @@ const App = () => {
   const [ lastMintedNFT, setLastMintedNFT ] = useState('');
   const [ lastTokenId, setLastTokenId ] = useState(0);
   
+  const CONTRACT_ADDRESS = '0xFED565B6B3917aFC51FfDA9F7cD539a5B53AEE26';
+  
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button className="cta-button connect-wallet-button">
