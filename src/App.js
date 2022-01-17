@@ -22,6 +22,29 @@ const App = () => {
   
   const CONTRACT_ADDRESS = '0xFED565B6B3917aFC51FfDA9F7cD539a5B53AEE26';
   
+  const checkIfWalletIsConnected = async () => {
+  
+    const { ethereum } = window;
+    
+    if (!ethereum){
+      console.error('[-] MetaMask not detected!  Please install metamask extension!');
+      alert('MetaMask not detected!  Get it here https://metamask.io/');
+      return;
+    }
+    
+    console.log('[+] MetaMask detected!');
+    
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    
+    if (accounts.length !== 0){
+      const account = accounts[0];
+      console.log(`[+] Using MetaMask Account: ${account}`);
+      setMetamaskAccount(account);
+    }else {
+      console.log('[-] Error no MetaMask accounts found!');
+    }
+  }
+  
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button className="cta-button connect-wallet-button">
