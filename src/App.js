@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
-import React from "react";
+import mintNFT from './utils/ExpanseNFT.json';
 
 // Constants
 const TWITTER_HANDLE = '_buildspace';
